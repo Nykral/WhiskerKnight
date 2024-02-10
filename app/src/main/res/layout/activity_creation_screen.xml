@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    tools:context=".view.CreationActivity">
+
+
+    <!-- Difficulty Selection -->
+    <TextView
+        android:id="@+id/textViewDifficulty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select Difficulty:"
+        android:textSize="40sp"
+        android:layout_marginTop="16dp"/>
+
+    <RadioGroup
+        android:id="@+id/radioGroupDifficulty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@+id/textViewDifficulty"
+        android:layout_marginTop="12dp">
+
+        <RadioButton
+            android:id="@+id/Easy"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text="Easy" />
+
+        <RadioButton
+            android:id="@+id/Medium"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text="Medium" />
+
+        <RadioButton
+            android:id="@+id/Hard"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text="Hard" />
+    </RadioGroup>
+
+    <!-- Character Selection -->
+    <TextView
+        android:id="@+id/textViewCharacter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select Character:"
+        android:textSize="40sp"
+        android:layout_below="@+id/radioGroupDifficulty"
+        android:layout_marginTop="16dp" />
+
+    <LinearLayout
+        android:id="@+id/characterSelectionLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@+id/textViewCharacter"
+        android:layout_marginTop="8dp">
+
+        <ImageButton
+            android:id="@+id/ibCharacter1"
+            android:layout_width="wrap_content"
+            android:layout_height="80dp"
+            android:layout_weight="1"
+            android:src="@drawable/sprite1"
+            android:scaleType="fitCenter"
+            android:background="@color/white"
+            android:contentDescription="Character 1" />
+
+        <ImageButton
+            android:id="@+id/ibCharacter2"
+            android:layout_width="wrap_content"
+            android:layout_height="80dp"
+            android:layout_weight="1"
+            android:src="@drawable/sprite2"
+            android:scaleType="fitCenter"
+            android:background="@color/white"
+            android:contentDescription="Character 2" />
+
+        <ImageButton
+            android:id="@+id/ibCharacter3"
+            android:layout_width="wrap_content"
+            android:layout_height="80dp"
+            android:layout_weight="1"
+            android:src="@drawable/sprite3"
+            android:scaleType="fitCenter"
+            android:background="@color/white"
+            android:contentDescription="Character 3" />
+    </LinearLayout>
+    <!-- Player Name -->
+    <EditText
+        android:id="@+id/getPlayerName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Name"
+        android:inputType="text"
+        android:textSize="30sp"
+        android:layout_below="@+id/characterSelectionLayout"
+        android:layout_marginTop="28dp"
+        android:layout_marginBottom="16dp"/>
+
+
+    <!-- Continue Button -->
+    <Button
+        android:id="@+id/btnContinue"
+        android:layout_width="250dp"
+        android:layout_height="90dp"
+        android:text="Continue"
+        android:textSize="40sp"
+        android:layout_below="@+id/getPlayerName"
+        android:layout_marginTop="16dp"
+        android:enabled="false" />
+
+</RelativeLayout>
