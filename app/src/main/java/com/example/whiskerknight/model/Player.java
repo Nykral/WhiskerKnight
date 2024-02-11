@@ -12,7 +12,9 @@ import java.util.Date;
 
 public class Player extends Circle {
     public static final double speed = 10.0;
+    public final int maxMana = 5;
     public int health = 5;
+    public int mana;
     private boolean isMoving;
     private String username;
     private int score;
@@ -26,6 +28,7 @@ public class Player extends Circle {
         this.isMoving = false;
         this.username = username;
         this.health = health;
+        this.mana = maxMana;
         this.score = score;
         this.difficulty = difficulty;
     }
@@ -35,6 +38,7 @@ public class Player extends Circle {
         this.isMoving = false;
         this.username = "Username";
         this.health = 5;
+        this.mana = maxMana;
         this.score = 0;
         this.difficulty = "Medium";
     }
@@ -97,6 +101,9 @@ public class Player extends Circle {
     public int getScore() {
         return score;
     }
+    public int getMana() {
+        return mana;
+    }
     public String getDifficulty() {
         return difficulty;
     }
@@ -108,6 +115,9 @@ public class Player extends Circle {
     }
     public void setScore(int score) {
         this.score = score;
+    }
+    public void setMana(int mana) {
+        this.mana = mana;
     }
     public void setDifficulty(String difficulty) {
         this.difficulty = difficulty;

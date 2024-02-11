@@ -36,9 +36,9 @@ public class EndActivity extends AppCompatActivity {
 
         ImageView resultBanner = findViewById(R.id.imageViewEndingBanner);
         if ("win".equals(result)) {
-            resultBanner.setImageResource(R.drawable.win_banner);
+            resultBanner.setImageResource(R.drawable.win_animation);
         } else {
-            resultBanner.setImageResource(R.drawable.lose_banner);
+            resultBanner.setImageResource(R.drawable.win_animation);
         }
 
 

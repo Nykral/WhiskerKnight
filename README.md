@@ -16,4 +16,4 @@ Solution: Researching about our problem and comparing it to others on the Intern
 - Problem Two: Bad Coding Principles<br>
 Solution: We conducted a comprehensive review to identify repetitive mistakes and improved on the readability of the code as much as we can through the use of documentation and comments in our coding. By doing so, we do not overlap each other.
 
-### **We did not use any APIs nor other public frameworks!**
+### **We did not use any APIs nor other public frameworks.**

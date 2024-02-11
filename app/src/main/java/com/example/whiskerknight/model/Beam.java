@@ -13,7 +13,8 @@ public class Beam extends Circle {
     public ImageView image;
 
     public Beam(Player cat, ImageView image) {
-        super(cat.getPositionX(), cat.getPositionY(), 25);
+        super(cat.getPositionX() + ((double) image.getWidth() /2), cat.getPositionY()+((double) image.getHeight() /2), 25);
+        //super(cat.getPositionX(), cat.getPositionY(), 25);
         this.image = image;
         this.directionX = cat.getDirectionX();
         this.directionY = cat.getDirectionY();

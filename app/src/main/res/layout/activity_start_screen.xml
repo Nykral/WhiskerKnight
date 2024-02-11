@@ -6,28 +6,33 @@
     android:fitsSystemWindows="true"
     android:orientation="vertical"
     android:gravity="center"
-    tools:context=".view.StartActivity">
+    android:background="@drawable/start_bg">
 
-    <TextView
-        android:id="@+id/textViewCharacter"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="40dp"
-        android:text="Whisker Knight"
-        android:textSize="40dp" />
+    <pl.droidsonroids.gif.GifImageView
+        android:id="@+id/gifImageView"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:src="@drawable/basic_animation"
+        android:layout_centerVertical="true"
+        android:layout_marginBottom="50dp"/>
 
     <Button
+        android:background="@drawable/roundstyle"
         android:id="@+id/btnStartGame"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:text="Start" />
+        android:layout_marginTop="50dp"
+        android:text="Start"
+        android:textStyle="bold"/>
 
     <Button
+        android:background="@drawable/roundstyle"
         android:id="@+id/btnExit"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:layout_below="@id/btnStartGame"
-        android:layout_marginTop="3dp"
-        android:text="Exit" />
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="150dp"
+        android:text="Exit"
+        android:textStyle="bold"/>
 
 </LinearLayout>
