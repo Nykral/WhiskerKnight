@@ -123,108 +123,108 @@ public class GameActivity extends AppCompatActivity {
 //            }
 //        }, 80);
 //
-//
-//        RelativeLayout layout = findViewById(R.id.map1); // Replace with your layout ID
-//
-//        layout.setOnKeyListener(new View.OnKeyListener() {
-//            @Override
-//            public boolean onKey(View v, int keyCode, KeyEvent event) {
-//                if (keyCode == KeyEvent.KEYCODE_SPACE
-//                        && event.getAction() == KeyEvent.ACTION_DOWN) {
-//                    if (!attackLaunched) {
-//                        // Throw the weapon
-//                        launchAttack();
-//                    } else {
-//                        // Reset weapon position and make it invisible
-//                        //laser.setVisibility(View.VISIBLE);
-//                    }
-//                    // Toggle the thrown state
-//                    attackLaunched = !attackLaunched;
-//                    return true;
-//                }
-//                return false;
-//            }
-//        });
-//
-//        layout.setOnKeyListener(new View.OnKeyListener() {
-//            @Override
-//            public boolean onKey(View v, int keyCode, KeyEvent event) {
-//                while (keyCode == KeyEvent.KEYCODE_DPAD_UP
-//                        && event.getAction() == KeyEvent.ACTION_DOWN) {
-//                    if (player.getPositionY() - 1 > 340) {
-//                        player.setPositionY(player.getPositionY() - 1*Player.speed);
-//                    }
-//                    imageViewCharacter.setY((float) player.getPositionY());
-//                    player.setDirection("UP");
-//                    player.setMoving(true);
-//                    player.update();
-//                    return true;
-//                }
-//                player.setMoving(false);
-//                player.update();
-//                return false;
-//            }
-//        });
-//
-//        layout.setOnKeyListener(new View.OnKeyListener() {
-//            @Override
-//            public boolean onKey(View v, int keyCode, KeyEvent event) {
-//                while (keyCode == KeyEvent.KEYCODE_DPAD_DOWN
-//                        && event.getAction() == KeyEvent.ACTION_DOWN) {
-//                    if (player.getPositionY() + 1 < 1430) {
-//                        player.setPositionY(player.getPositionY() + 1*Player.speed);
-//                    }
-//                    imageViewCharacter.setY((float) player.getPositionY());
-//                    player.setDirection("DOWN");
-//                    player.setMoving(true);
-//                    player.update();
-//                    return true;
-//                }
-//                player.setMoving(false);
-//                player.update();
-//                return false;
-//            }
-//        });
-//
-//        layout.setOnKeyListener(new View.OnKeyListener() {
-//            @Override
-//            public boolean onKey(View v, int keyCode, KeyEvent event) {
-//                while (keyCode == KeyEvent.KEYCODE_DPAD_LEFT
-//                        && event.getAction() == KeyEvent.ACTION_DOWN) {
-//                    if (player.getPositionX() - 1 > 140) {
-//                        player.setPositionX(player.getPositionX() - 1*Player.speed);
-//                    }
-//                    imageViewCharacter.setX((float) player.getPositionX());
-//                    player.setDirection("LEFT");
-//                    player.setMoving(true);
-//                    player.update();
-//                    return true;
-//                }
-//                player.setMoving(false);
-//                player.update();
-//                return false;
-//            }
-//        });
-//
-//        layout.setOnKeyListener(new View.OnKeyListener() {
-//            @Override
-//            public boolean onKey(View v, int keyCode, KeyEvent event) {
-//                while (keyCode == KeyEvent.KEYCODE_DPAD_RIGHT
-//                        && event.getAction() == KeyEvent.ACTION_DOWN) {
-//                    if (player.getPositionX() + 1 < 820) {
-//                        player.setPositionX(player.getPositionX() + 1*Player.speed);
-//                    }
-//                    imageViewCharacter.setX((float) player.getPositionX());
-//                    player.setDirection("RIGHT");
-//                    player.setMoving(true);
-//                    player.update();
-//                    return true;
-//                }
-//                player.setMoving(false);
-//                player.update();
-//                return false;
-//            }
-//        });
+
+        RelativeLayout layout = findViewById(R.id.map1); // Replace with your layout ID
+
+        layout.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (keyCode == KeyEvent.KEYCODE_SPACE
+                        && event.getAction() == KeyEvent.ACTION_DOWN) {
+                    if (!attackLaunched) {
+                        // Throw the weapon
+                        //launchAttack();
+                    } else {
+                        // Reset weapon position and make it invisible
+                        //laser.setVisibility(View.VISIBLE);
+                    }
+                    // Toggle the thrown state
+                    attackLaunched = !attackLaunched;
+                    return true;
+                }
+                return false;
+            }
+        });
+
+        layout.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                while (keyCode == KeyEvent.KEYCODE_DPAD_UP
+                        && event.getAction() == KeyEvent.ACTION_DOWN) {
+                    if (player.getPositionY() - 1 > 340) {
+                        player.setPositionY(player.getPositionY() - 1*Player.speed);
+                    }
+                    imageViewCharacter.setY((float) player.getPositionY());
+                    player.setDirection("UP");
+                    player.setMoving(true);
+                    player.update();
+                    return true;
+                }
+                player.setMoving(false);
+                player.update();
+                return false;
+            }
+        });
+
+        layout.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                while (keyCode == KeyEvent.KEYCODE_DPAD_DOWN
+                        && event.getAction() == KeyEvent.ACTION_DOWN) {
+                    if (player.getPositionY() + 1 < 1430) {
+                        player.setPositionY(player.getPositionY() + 1*Player.speed);
+                    }
+                    imageViewCharacter.setY((float) player.getPositionY());
+                    player.setDirection("DOWN");
+                    player.setMoving(true);
+                    player.update();
+                    return true;
+                }
+                player.setMoving(false);
+                player.update();
+                return false;
+            }
+        });
+
+        layout.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                while (keyCode == KeyEvent.KEYCODE_DPAD_LEFT
+                        && event.getAction() == KeyEvent.ACTION_DOWN) {
+                    if (player.getPositionX() - 1 > 140) {
+                        player.setPositionX(player.getPositionX() - 1*Player.speed);
+                    }
+                    imageViewCharacter.setX((float) player.getPositionX());
+                    player.setDirection("LEFT");
+                    player.setMoving(true);
+                    player.update();
+                    return true;
+                }
+                player.setMoving(false);
+                player.update();
+                return false;
+            }
+        });
+
+        layout.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                while (keyCode == KeyEvent.KEYCODE_DPAD_RIGHT
+                        && event.getAction() == KeyEvent.ACTION_DOWN) {
+                    if (player.getPositionX() + 1 < 820) {
+                        player.setPositionX(player.getPositionX() + 1*Player.speed);
+                    }
+                    imageViewCharacter.setX((float) player.getPositionX());
+                    player.setDirection("RIGHT");
+                    player.setMoving(true);
+                    player.update();
+                    return true;
+                }
+                player.setMoving(false);
+                player.update();
+                return false;
+            }
+        });
 //
 //        // Set focus on the layout to receive key events
 //        layout.setFocusableInTouchMode(true);
