@@ -53,7 +53,7 @@ public class Slime extends Circle {
     @Override
     public void update() {
         double distanceToPlayerX = player.getPositionX() - positionX;
-        double distanceToPlayerY = player.getDirectionY() - positionY;
+        double distanceToPlayerY = player.getPositionY() - positionY;
 
         // Calculate (absolute) distance between enemy (this) and player
         double distanceToPlayer = GameObject.getDistanceBetweenObjects(this, player);
@@ -80,14 +80,9 @@ public class Slime extends Circle {
         Rect playerRect = new Rect();
         player.getHitRect(playerRect);
 
-        int width = 0;
-        int height = 0;
-
         Rect enemyRect = new Rect();
         image.getHitRect(enemyRect);
 
-        width += 1;
-        height += 1;
         return Rect.intersects(playerRect, enemyRect);
     }
 

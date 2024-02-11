@@ -1,15 +1,13 @@
 package com.example.whiskerknight.view;
 
-import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.util.DisplayMetrics;
 import android.view.KeyEvent;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -17,7 +15,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.whiskerknight.Activity.GameDisplay;
 import com.example.whiskerknight.R;
 import com.example.whiskerknight.viewmodel.Joystick;
 import com.example.whiskerknight.model.Beam;
@@ -25,11 +22,12 @@ import com.example.whiskerknight.model.Slime;
 import com.example.whiskerknight.model.Player;
 import com.example.whiskerknight.viewmodel.PlayerVM;
 
+import java.util.Iterator;
+import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Iterator;
 
 public class GameActivity extends AppCompatActivity {
     private Player player;
@@ -40,16 +38,19 @@ public class GameActivity extends AppCompatActivity {
     private Handler hitHandler = new Handler(Looper.getMainLooper());
     private final int leftBoundary = 250;
     private final int rightBoundary = 850;
+    RelativeLayout layout;
+
     private boolean isAttacking = false;
     private boolean attackLaunched = false;
     private Beam beam;
     private int weaponSize = 200;
     private int enemyKilled = 0;
     private int pointsEarned = 0;
+    private int seconds = 0;
     private int joystickPointerId = 0;
     private Joystick joystick;
     private int numberOfSpellsToCast = 0;
-    private List<Slime> enemyList = new ArrayList<Slime>();
+    private List<Slime> slimeList = new ArrayList<Slime>();
     private List<Beam> beamList = new ArrayList<Beam>();
     private RelativeLayout.LayoutParams weaponParams = new RelativeLayout.LayoutParams(
             weaponSize,
@@ -73,7 +74,7 @@ public class GameActivity extends AppCompatActivity {
         imageViewCharacter = findViewById(R.id.imageViewCharacter);
 //
 //        joystick = new Joystick(275, 700, 70, 40);
-//
+        layout = findViewById(R.id.map1);
         player = Player.getPlayer();
 //
         //concatenate player's values with the category
@@ -91,8 +92,18 @@ public class GameActivity extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+                        seconds++;
                         player.setScore(player.getScore() + 1);
                         textViewScore.setText("Current Score: " + player.getScore());
+                        updateEnemies();
+                        if (seconds % 10 == 0) {
+                            for (int i = 0; i < seconds / 2; i++) {
+                                ImageView imageView = new ImageView(GameActivity.this);
+                                imageView.setImageResource(R.mipmap.ic_launcher);
+                                viewSet(imageView, 100, 100);
+                                slimeList.add(new Slime(player, imageView));
+                            }
+                        }
                     }
                 });
             }
@@ -127,26 +138,26 @@ public class GameActivity extends AppCompatActivity {
         RelativeLayout layout = findViewById(R.id.map1);
         layout.setFocusableInTouchMode(true);
         layout.requestFocus();
-
-        layout.setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if (keyCode == KeyEvent.KEYCODE_SPACE
-                        && event.getAction() == KeyEvent.ACTION_DOWN) {
-                    if (!attackLaunched) {
-                        // Throw the weapon
-                        //launchAttack();
-                    } else {
-                        // Reset weapon position and make it invisible
-                        //laser.setVisibility(View.VISIBLE);
-                    }
-                    // Toggle the thrown state
-                    attackLaunched = !attackLaunched;
-                    return true;
-                }
-                return false;
-            }
-        });
+//
+//        layout.setOnKeyListener(new View.OnKeyListener() {
+//            @Override
+//            public boolean onKey(View v, int keyCode, KeyEvent event) {
+//                if (keyCode == KeyEvent.KEYCODE_SPACE
+//                        && event.getAction() == KeyEvent.ACTION_DOWN) {
+//                    if (!attackLaunched) {
+//                        // Throw the weapon
+//                        //launchAttack();
+//                    } else {
+//                        // Reset weapon position and make it invisible
+//                        //laser.setVisibility(View.VISIBLE);
+//                    }
+//                    // Toggle the thrown state
+//                    attackLaunched = !attackLaunched;
+//                    return true;
+//                }
+//                return false;
+//            }
+//        });
 
         layout.setOnKeyListener(new View.OnKeyListener() {
             @Override
@@ -198,6 +209,30 @@ public class GameActivity extends AppCompatActivity {
             }
         });
 
+
+//
+//        Iterator<Slime> iteratorSlime = slimeList.iterator();
+//        while (iteratorSlime.hasNext()) {
+//            Circle enemy = iteratorSlime.next();
+//            if (Circle.isColliding(enemy, player)) {
+//                // Remove enemy if it collides with the player
+//                iteratorSlime.remove();
+//                player.setHealth(player.getHealth() - 1);
+//                continue;
+//            }
+//
+//            Iterator<Beam> iteratorBeam = beamList.iterator();
+//            while (iteratorBeam.hasNext()) {
+//                Circle beam = iteratorBeam.next();
+//                // Remove enemy if it collides with a spell
+//                if (Circle.isColliding(beam, enemy)) {
+//                    iteratorBeam.remove();
+//                    iteratorSlime.remove();
+//                    break;
+//                }
+//            }
+//        }
+
 //
 //        Timer statusTimer = new Timer();
 //        statusTimer.schedule(new TimerTask() {
@@ -220,16 +255,6 @@ public class GameActivity extends AppCompatActivity {
 //        }, 0, 250); // Check every .25 seconds
 //    }
 //
-//    private void spawnSlime() {
-//        if (player.getTimePlayed() % 60 == 0) {
-//            for (Slime slime : enemyList) {
-//                slime.setSpeed(slime.getSpeed() + 0.2);
-//                slime.setRespawnTimerMin(slime.getSpawnRateMin() + 5);
-//            }
-//        }
-//
-//        enemyList.add(new Slime(player, findViewById(R.id.enemy1_1)));
-//    }
 //    private void update() {
 //        spawnSlime();
 //
@@ -272,11 +297,7 @@ public class GameActivity extends AppCompatActivity {
 //            enemyDirection = -1; // Change direction when hitting the right boundary
 //        } else {
 //            slime.getImage().setX(newLeftMargin1);
-//        }*/
-///*
-//    private void updateEnemies() {
-//        moveSlime(slime);
-//    }*/
+//        }
 //
 ////    private void destroy() {
 ////        if (laser.getVisibility() == View.VISIBLE && slime.hit(laser)) {
@@ -291,20 +312,6 @@ public class GameActivity extends AppCompatActivity {
 //        }
 //        return false;
 //    }
-//    /*
-//    public int difficultyMultiplier() {
-//        if (player.getDifficulty().equals("Hard")) {
-//            return  3;
-//        } else if (player.getDifficulty().equals("Medium")) {
-//            return  2;
-//        } else {
-//            if (true) {
-//                return 1;
-//            } else {
-//                return 1;
-//            }
-//        }
-//    }*/
 //    private void attack() {
 //        isAttacking = true;
 //
@@ -333,4 +340,33 @@ public class GameActivity extends AppCompatActivity {
 ////            }
 ////        }, 500);
 //    }
-}}
+    }
+    private void viewSet(ImageView imageView, int width, int height) {
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(width, height);
+
+        // setting the margin in linearlayout
+        params.setMargins((int) (Math.random()*20 + 490), (int) (Math.random() < 0.5 ? 20 : 1900), 0, 10);
+        imageView.setLayoutParams(params);
+        imageView.setImageResource(R.drawable.slime);
+        // adding the image in layout
+        layout.addView(imageView);
+    }
+
+    private void updateEnemies() {
+        for (Slime slime : slimeList) {
+            slime.update();
+            slime.getImage().setX((float) slime.getPositionX());
+            slime.getImage().setY((float) slime.getPositionY());
+
+        }
+
+        Iterator<Slime> slimeIterator = slimeList.iterator();
+        while (slimeIterator.hasNext()) {
+            Slime currentSlime = slimeIterator.next();
+            if (currentSlime.hit(findViewById(R.id.imageViewCharacter))) {
+                slimeIterator.remove();
+                player.setHealth(player.getHealth() - 1);
+            }
+        }
+    }
+}
