@@ -25,14 +25,10 @@ public class StartActivity extends AppCompatActivity {
 
 
         btnStartGame.setOnClickListener(new View.OnClickListener() {
-            private int x = 0;
-            private int y = 0;
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(StartActivity.this, CreationActivity.class);
                 startActivity(intent);
-                x++;
-                y++;
             }
         });
 

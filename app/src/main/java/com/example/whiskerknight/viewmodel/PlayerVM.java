@@ -15,7 +15,7 @@ public class PlayerVM extends ViewModel {
     private int x = 0;
     private Player player;
     public PlayerVM() {
-        //player = Player.getPlayer();
+        player = Player.getPlayer();
     }
     public void changePlayerHealth(int i) {
         player.setHealth(player.getHealth() + i);
@@ -27,42 +27,21 @@ public class PlayerVM extends ViewModel {
             x++;
         }
     }
-    public void changePlayerTime(int i) {
-        if (player.getTimePlayed() >= 0) {
-            player.setTimePlayed(player.getTimePlayed() + i);
-        }
-    }
     public void difficultyModeConfiguration() {
         // sets lives based on difficulty
-        if (player.getDifficulty().equals("Hard")) {
-            player.setHealth(15);
-        } else if (player.getDifficulty().equals("Medium")) {
-            player.setHealth(30);
+        if (Player.getDifficulty().equals("Hard")) {
+            player.setHealth(5);
+        } else if (Player.getDifficulty().equals("Medium")) {
+            player.setHealth(3);
         } else {
-            player.setHealth(50);
+            player.setHealth(3);
         }
-        // sets score based on difficulty
-        if (player.getDifficulty().equals("Hard")) {
-            player.setScore(30);
-        } else if (player.getDifficulty().equals("Medium")) {
-            player.setScore(50);
-        } else {
-            player.setScore(70);
-        }
-
-        player.setTimePlayed(0);
     }
+
     //player entry for leaderboard
     public String playerEntry() {
         Date systemTime = Calendar.getInstance().getTime();
         return new String(player.getScore() + " " + player.getUsername() + " "
                 + systemTime.toString());
-    }
-    public boolean isCollisionDoor(ImageView player, ImageView door) {
-        Rect playerLRect = new Rect();
-        Rect doorLRect = new Rect();
-        player.getHitRect(playerLRect);
-        door.getHitRect(doorLRect);
-        return Rect.intersects(playerLRect, doorLRect);
     }
 }

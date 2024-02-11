@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:text="Select Difficulty:"
         android:textSize="40sp"
-        android:layout_marginTop="16dp"/>
+        android:layout_marginTop="50dp"/>
 
     <RadioGroup
         android:id="@+id/radioGroupDifficulty"
@@ -48,52 +48,26 @@
     </RadioGroup>
 
     <!-- Character Selection -->
-    <TextView
-        android:id="@+id/textViewCharacter"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Select Character:"
-        android:textSize="40sp"
-        android:layout_below="@+id/radioGroupDifficulty"
-        android:layout_marginTop="16dp" />
+
 
     <LinearLayout
         android:id="@+id/characterSelectionLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_below="@+id/textViewCharacter"
-        android:layout_marginTop="8dp">
+        android:layout_below="@+id/radioGroupDifficulty"
+        android:layout_marginTop="50dp">
 
-        <ImageButton
+        <ImageView
             android:id="@+id/ibCharacter1"
             android:layout_width="wrap_content"
-            android:layout_height="80dp"
+            android:layout_height="150dp"
             android:layout_weight="1"
             android:src="@drawable/sprite1"
             android:scaleType="fitCenter"
-            android:background="@color/white"
             android:contentDescription="Character 1" />
 
-        <ImageButton
-            android:id="@+id/ibCharacter2"
-            android:layout_width="wrap_content"
-            android:layout_height="80dp"
-            android:layout_weight="1"
-            android:src="@drawable/sprite2"
-            android:scaleType="fitCenter"
-            android:background="@color/white"
-            android:contentDescription="Character 2" />
 
-        <ImageButton
-            android:id="@+id/ibCharacter3"
-            android:layout_width="wrap_content"
-            android:layout_height="80dp"
-            android:layout_weight="1"
-            android:src="@drawable/sprite3"
-            android:scaleType="fitCenter"
-            android:background="@color/white"
-            android:contentDescription="Character 3" />
     </LinearLayout>
     <!-- Player Name -->
     <EditText
@@ -114,7 +88,7 @@
         android:layout_width="250dp"
         android:layout_height="90dp"
         android:text="Continue"
-        android:textSize="40sp"
+        android:textSize="35sp"
         android:layout_below="@+id/getPlayerName"
         android:layout_marginTop="16dp"
         android:enabled="false" />

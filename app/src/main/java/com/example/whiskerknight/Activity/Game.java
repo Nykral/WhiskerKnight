@@ -10,11 +10,7 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 import com.example.whiskerknight.model.Circle;
-import com.example.whiskerknight.gamepanel.GameOver;
-import com.example.whiskerknight.gamepanel.Joystick;
-import com.example.whiskerknight.graphics.Animator;
-import com.example.whiskerknight.graphics.SpriteSheet;
-import com.example.whiskerknight.graphics.Tilemap;
+import com.example.whiskerknight.viewmodel.Joystick;
 import com.example.whiskerknight.model.Player;
 
 import java.util.ArrayList;
@@ -28,16 +24,13 @@ import java.util.List;
 
 
 class Game  {
-//extends SurfaceView implements SurfaceHolder.Callback
-//    private final Tilemap tilemap;
+//    extends SurfaceView implements SurfaceHolder.Callback
 //    private int joystickPointerId = 0;
 //    private final Joystick joystick;
 //    private final Player player;
-//    private GameLoop gameLoop;
 //    private List<Enemy> enemyList = new ArrayList<Enemy>();
 //    private List<Spell> spellList = new ArrayList<Spell>();
 //    private int numberOfSpellsToCast = 0;
-//    private GameOver gameOver;
 //    private GameDisplay gameDisplay;
 //
 //    public Game(Context context) {
@@ -47,24 +40,17 @@ class Game  {
 //        SurfaceHolder surfaceHolder = getHolder();
 //        surfaceHolder.addCallback(this);
 //
-//        gameLoop = new GameLoop(this, surfaceHolder);
-//
 //        // Initialize game panels
-//        gameOver = new GameOver(context);
 //        joystick = new Joystick(275, 700, 70, 40);
 //
 //        // Initialize game objects
-//        SpriteSheet spriteSheet = new SpriteSheet(context);
-//        Animator animator = new Animator(spriteSheet.getPlayerSpriteArray());
-//        player = new Player(context, joystick, 2*500, 500, 32, animator);
+//        player = new Player(context, joystick, 2*500, 500, 32);
 //
 //        // Initialize display and center it around the player
 //        DisplayMetrics displayMetrics = new DisplayMetrics();
 //        ((Activity) getContext()).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
 //        gameDisplay = new GameDisplay(displayMetrics.widthPixels, displayMetrics.heightPixels, player);
 //
-//        // Initialize Tilemap
-//        tilemap = new Tilemap(spriteSheet);
 //
 //        setFocusable(true);
 //    }
@@ -109,32 +95,8 @@ class Game  {
 //    }
 //
 //    @Override
-//    public void surfaceCreated(SurfaceHolder holder) {
-//        Log.d("Game.java", "surfaceCreated()");
-//        if (gameLoop.getState().equals(Thread.State.TERMINATED)) {
-//            SurfaceHolder surfaceHolder = getHolder();
-//            surfaceHolder.addCallback(this);
-//            gameLoop = new GameLoop(this, surfaceHolder);
-//        }
-//        gameLoop.startLoop();
-//    }
-//
-//    @Override
-//    public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
-//        Log.d("Game.java", "surfaceChanged()");
-//    }
-//
-//    @Override
-//    public void surfaceDestroyed(SurfaceHolder holder) {
-//        Log.d("Game.java", "surfaceDestroyed()");
-//    }
-//
-//    @Override
 //    public void draw(Canvas canvas) {
 //        super.draw(canvas);
-//
-//        // Draw Tilemap
-//        tilemap.draw(canvas, gameDisplay);
 //
 //        // Draw game objects
 //        player.draw(canvas, gameDisplay);
@@ -213,8 +175,5 @@ class Game  {
 //        // game coordinates
 //        gameDisplay.update();
 //    }
-//
-//    public void pause() {
-//        gameLoop.stopLoop();
-//    }
+
 }

@@ -13,8 +13,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.whiskerknight.R;
-import com.example.whiskerknight.model.BuildLeaderboard;
-import com.example.whiskerknight.viewmodel.LeaderboardAdapter;
+import com.example.whiskerknight.Leaderboard.BuildLeaderboard;
+import com.example.whiskerknight.Leaderboard.LeaderboardAdapter;
 import com.example.whiskerknight.viewmodel.PlayerVM;
 
 public class EndActivity extends AppCompatActivity {

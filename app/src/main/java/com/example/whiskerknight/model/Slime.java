@@ -6,33 +6,25 @@ import android.graphics.Rect;
 import android.widget.ImageView;
 
 import com.example.whiskerknight.Activity.GameDisplay;
-import com.example.whiskerknight.Activity.GameLoop;
-import com.example.whiskerknight.viewmodel.EnemySubscriber;
-import com.example.whiskerknight.viewmodel.EnemyVM;
-import com.example.whiskerknight.viewmodel.PlayerVM;
 
 
 public class Slime extends Circle {
     private ImageView image;
-    private static double speed = com.example.whiskerknight.model.Player.SPEED_PIXELS_PER_SECOND*0.6;
-    private static final double MAX_SPEED = speed / GameLoop.MAX_UPS;
+    private static double speed = Player.speed*0.6;
     private static double spawnRateMin;
     private static final double spawnRateSec = spawnRateMin/60.0;
-    private static final double UPDATES_PER_SPAWN = GameLoop.MAX_UPS/spawnRateSec;
-    private static double updatesUntilNextSpawn = UPDATES_PER_SPAWN;
     private boolean isDestroyed = false;
     private Player player;
-    private PlayerVM playervm;
 
-    public Slime(Context context, Player player, double positionX, double positionY, double radius, ImageView image) {
-        super(context, positionX, positionY, radius);
+    public Slime(Player player, double positionX, double positionY, double radius, ImageView image) {
+        super(positionX, positionY, radius);
         this.player = player;
         this.image = image;
         setDifficulty(player);
     }
 
-    public Slime(Context context, Player player, ImageView image) {
-        super(context, Math.random()*1000, Math.random()*1000, 30);
+    public Slime(Player player, ImageView image) {
+        super(Math.random()*1000, Math.random()*1000, 30);
         this.player = player;
         this.image = image;
         setDifficulty(player);
@@ -49,16 +41,6 @@ public class Slime extends Circle {
         } else {
             speed = 0.8;
             spawnRateMin = 45;
-        }
-    }
-
-    public static boolean readyToSpawn() {
-        if (updatesUntilNextSpawn <= 0) {
-            updatesUntilNextSpawn += UPDATES_PER_SPAWN;
-            return true;
-        } else {
-            updatesUntilNextSpawn --;
-            return false;
         }
     }
 
@@ -82,8 +64,8 @@ public class Slime extends Circle {
 
         // Set velocity in the direction to the player
         if(distanceToPlayer > 0) { // Avoid division by zero
-            velocityX = directionX*MAX_SPEED;
-            velocityY = directionY*MAX_SPEED;
+            velocityX = directionX*speed;
+            velocityY = directionY*speed;
         } else {
             velocityX = 0;
             velocityY = 0;
