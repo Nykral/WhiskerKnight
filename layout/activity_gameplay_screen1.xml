@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:background="@drawable/background_town"
+    android:id="@+id/map1"
+    tools:context=".view.GameActivity">
+
+    <Button
+        android:id="@+id/btnUp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="65dp"
+        android:text="up" />
+    <Button
+        android:id="@+id/btnDown"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="65dp"
+        android:text="down" />
+    <Button
+        android:id="@+id/btnLeft"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="97dp"
+        android:text="left" />
+    <Button
+        android:id="@+id/btnRight"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="33dp"
+        android:text="right" />
+
+    <!-- Display Player Name -->
+    <TextView
+        android:id="@+id/textViewPlayerName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="35dp"
+        android:text="Name: "
+        android:textSize="18sp" />
+
+    <!-- Display Character Sprite -->
+
+    <ImageView
+        android:id="@+id/enemy1_1"
+        android:layout_width="20dp"
+        android:layout_height="32dp"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="190dp"
+        android:contentDescription="Character"
+        android:scaleType="fitCenter"
+        android:src="@drawable/slime" />
+
+    <ImageView
+        android:id="@+id/enemy1_2"
+        android:layout_width="20dp"
+        android:layout_height="32dp"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="290dp"
+        android:contentDescription="Character"
+        android:scaleType="fitCenter"
+        android:src="@drawable/slime" />
+
+    <ImageView
+        android:id="@+id/enemy1_3"
+        android:layout_width="20dp"
+        android:layout_height="32dp"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="390dp"
+        android:contentDescription="Character"
+        android:scaleType="fitCenter"
+        android:src="@drawable/slime" />
+
+    <ImageView
+        android:id="@+id/imageViewCharacter"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:contentDescription="Character"
+        android:scaleType="fitCenter"
+        android:layout_marginTop="450dp"
+        android:layout_marginLeft="190dp"
+        android:src="@drawable/sprite1"/>
+
+<!--    <ImageView-->
+<!--        android:id="@+id/shuriken"-->
+<!--        android:layout_width="35dp"-->
+<!--        android:layout_height="35dp"-->
+<!--        android:contentDescription="Character"-->
+<!--        android:scaleType="fitCenter"-->
+<!--        android:layout_marginTop="450dp"-->
+<!--        android:layout_marginLeft="190dp"-->
+<!--        android:src="@drawable/shuriken" />-->
+
+    <!-- Display Chosen Difficulty -->
+    <TextView
+        android:id="@+id/textViewDifficulty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textViewPlayerName"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="540dp"
+        android:text="Difficulty: "
+        android:textSize="18sp" />
+
+    <!-- Display Player's Starting Health -->
+    <TextView
+        android:id="@+id/textViewStartingHealth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textViewDifficulty"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="35dp"
+        android:text="Lives: "
+        android:textSize="18sp" />
+
+    <!-- Display Player's Score -->
+    <TextView
+        android:id="@+id/textViewScore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textViewStartingHealth"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="35dp"
+        android:text="Score: "
+        android:textSize="18sp" />
+
+    <!-- Display Play Timer -->
+    <TextView
+        android:id="@+id/textViewTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textViewScore"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="35dp"
+        android:text="Time Spent: "
+        android:textSize="18sp" />
+
+    <!-- Button to Navigate to Ending Screen -->
+    <Button
+        android:id="@+id/btnEndGame"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textViewDifficulty"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="33dp"
+        android:text="Give up" />
+</RelativeLayout>

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="16dp"
+    tools:context=".view.CreationActivity"
+    android:background="@drawable/creation">
+
+    <!-- Difficulty Selection Buttons -->
+    <Button
+        android:id="@+id/btnEasy"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textSize="20sp"
+        android:text="Easy"
+        android:background="?android:attr/selectableItemBackground"
+        android:alpha="0.7" />
+
+    <Button
+        android:id="@+id/btnMedium"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:layout_weight="1"
+        android:text="Medium"
+        android:background="?android:attr/selectableItemBackground"
+        android:alpha="0.7" />
+
+    <Button
+        android:id="@+id/btnHard"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:layout_weight="1"
+        android:text="Hard"
+        android:background="?android:attr/selectableItemBackground"
+        android:alpha="0.7" />
+
+    <!-- Character Selection -->
+    <LinearLayout
+        android:id="@+id/characterSelectionLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@+id/btnHard"
+        android:layout_marginTop="10dp"
+        tools:ignore="ExtraText">
+
+        <pl.droidsonroids.gif.GifImageView
+            android:id="@+id/ibCharacter1"
+            android:layout_width="0dp"
+            android:layout_height="200dp"
+            android:layout_weight="1"
+            android:src="@drawable/standing"
+            android:scaleType="fitCenter"
+            android:contentDescription="Character 1"/>
+
+    </LinearLayout>
+
+    <!-- Player Name -->
+    <EditText
+        android:id="@+id/getPlayerName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Name"
+        android:inputType="text"
+        android:textSize="30sp"
+        android:layout_below="@+id/characterSelectionLayout"
+        android:layout_marginTop="28dp"
+        android:layout_marginBottom="16dp"/>
+
+
+    <!-- Continue Button -->
+    <Button
+        android:background="@drawable/roundstyle"
+        android:id="@+id/btnContinue"
+        android:layout_width="230dp"
+        android:layout_height="80dp"
+        android:text="Continue"
+        android:textSize="30sp"
+        android:layout_below="@+id/getPlayerName"
+        android:layout_centerVertical="true"
+        android:enabled="false" />
+
+</RelativeLayout>
