@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-    android:background="@drawable/background_town"
+    android:background="@drawable/game_bg"
     android:id="@+id/map1"
     tools:context=".view.GameActivity">
 
@@ -20,15 +20,15 @@
         android:textSize="18sp" />
 
     <!-- Display Character Sprite -->
-    <ImageView
+    <pl.droidsonroids.gif.GifImageView
         android:id="@+id/imageViewCharacter"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
+        android:layout_width="50dp"
+        android:layout_height="60dp"
         android:contentDescription="Character"
         android:scaleType="fitCenter"
-        android:layout_marginTop="450dp"
-        android:layout_marginLeft="60dp"
-        android:src="@drawable/sprite1"/>
+        android:layout_marginTop="320dp"
+        android:layout_marginLeft="140dp"
+        android:src="@drawable/stand_down"/>
 
     <!-- Display Player's Starting Health -->
     <TextView

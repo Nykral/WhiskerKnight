@@ -83,7 +83,7 @@ public class GameActivity extends AppCompatActivity {
         textViewPlayerName.setText("Player Name: " + player.getUsername());
         textViewHealth.setText("Health: " + player.getHealth());
 
-        imageViewCharacter.setImageResource(R.drawable.sprite1);
+        imageViewCharacter.setImageResource(R.drawable.stand_down);
 
         // updates the player's score in real time
         scoreTimer = new Timer();
@@ -323,7 +323,7 @@ public class GameActivity extends AppCompatActivity {
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(width, height);
 
         imageView.setLayoutParams(params);
-        imageView.setImageResource(R.drawable.slime);
+        imageView.setImageResource(R.drawable.slime_jump);
         imageView.setVisibility(View.INVISIBLE);
         layout.addView(imageView);
     }

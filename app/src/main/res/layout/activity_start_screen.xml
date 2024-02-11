@@ -6,13 +6,13 @@
     android:fitsSystemWindows="true"
     android:orientation="vertical"
     android:gravity="center"
-    android:background="@drawable/start">
+    android:background="@drawable/start_bg">
 
     <pl.droidsonroids.gif.GifImageView
         android:id="@+id/gifImageView"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:src="@drawable/sleep"
+        android:src="@drawable/basic_animation"
         android:layout_centerVertical="true"
         android:layout_marginBottom="50dp"/>
 

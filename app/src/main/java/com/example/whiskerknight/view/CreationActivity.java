@@ -34,7 +34,7 @@ public class CreationActivity extends AppCompatActivity {
 
         player = Player.getPlayer();
 
-        sprite = findViewById(R.id.ibCharacter1);
+        sprite = findViewById(R.id.cat);
         radioGroupDifficulty = findViewById(R.id.radioGroupDifficulty);
         playerName = findViewById(R.id.getPlayerName);
         btnContinue = findViewById(R.id.btnContinue);
