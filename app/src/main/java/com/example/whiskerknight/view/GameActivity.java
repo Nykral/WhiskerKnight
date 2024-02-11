@@ -16,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.whiskerknight.R;
+import com.example.whiskerknight.model.GameObject;
 import com.example.whiskerknight.viewmodel.Joystick;
 import com.example.whiskerknight.model.Beam;
 import com.example.whiskerknight.model.Slime;
@@ -368,5 +369,28 @@ public class GameActivity extends AppCompatActivity {
                 player.setHealth(player.getHealth() - 1);
             }
         }
+    }
+    public void update() {
+        double distanceToPlayerX = player.getPositionX() - slime.getPositionX();
+        double distanceToPlayerY = player.getPositionY() - slime.getPositionY();
+
+        // Calculate (absolute) distance between enemy (this) and player
+        double distanceToPlayer = GameObject.getDistanceBetweenObjects(this, player);
+
+        // Calculate direction from enemy to player
+        double directionX = distanceToPlayerX/distanceToPlayer;
+        double directionY = distanceToPlayerY/distanceToPlayer;
+
+        // Set velocity in the direction to the player
+        if(distanceToPlayer > 0) { // Avoid division by zero
+            velocityX = directionX*speed;
+            velocityY = directionY*speed;
+        } else {
+            velocityX = 0;
+            velocityY = 0;
+        }
+
+        positionX += velocityX;
+        positionY += velocityY;
     }
 }

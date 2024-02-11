@@ -52,27 +52,7 @@ public class Slime extends Circle {
 
     @Override
     public void update() {
-        double distanceToPlayerX = player.getPositionX() - positionX;
-        double distanceToPlayerY = player.getPositionY() - positionY;
 
-        // Calculate (absolute) distance between enemy (this) and player
-        double distanceToPlayer = GameObject.getDistanceBetweenObjects(this, player);
-
-        // Calculate direction from enemy to player
-        double directionX = distanceToPlayerX/distanceToPlayer;
-        double directionY = distanceToPlayerY/distanceToPlayer;
-
-        // Set velocity in the direction to the player
-        if(distanceToPlayer > 0) { // Avoid division by zero
-            velocityX = directionX*speed;
-            velocityY = directionY*speed;
-        } else {
-            velocityX = 0;
-            velocityY = 0;
-        }
-
-        positionX += velocityX;
-        positionY += velocityY;
     }
 
 
