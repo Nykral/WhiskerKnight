@@ -91,7 +91,7 @@ public class GameActivity extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        playerVM.changePlayerScore(1);
+                        player.setScore(player.getScore() + 1);
                         textViewScore.setText("Current Score: " + player.getScore());
                     }
                 });
@@ -123,8 +123,10 @@ public class GameActivity extends AppCompatActivity {
 //            }
 //        }, 80);
 //
-
-        RelativeLayout layout = findViewById(R.id.map1); // Replace with your layout ID
+//
+        RelativeLayout layout = findViewById(R.id.map1);
+        layout.setFocusableInTouchMode(true);
+        layout.requestFocus();
 
         layout.setOnKeyListener(new View.OnKeyListener() {
             @Override
@@ -149,7 +151,7 @@ public class GameActivity extends AppCompatActivity {
         layout.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
-                while (keyCode == KeyEvent.KEYCODE_DPAD_UP
+                if (keyCode == KeyEvent.KEYCODE_DPAD_UP
                         && event.getAction() == KeyEvent.ACTION_DOWN) {
                     if (player.getPositionY() - 1 > 340) {
                         player.setPositionY(player.getPositionY() - 1*Player.speed);
@@ -159,17 +161,7 @@ public class GameActivity extends AppCompatActivity {
                     player.setMoving(true);
                     player.update();
                     return true;
-                }
-                player.setMoving(false);
-                player.update();
-                return false;
-            }
-        });
-
-        layout.setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                while (keyCode == KeyEvent.KEYCODE_DPAD_DOWN
+                } else if (keyCode == KeyEvent.KEYCODE_DPAD_DOWN
                         && event.getAction() == KeyEvent.ACTION_DOWN) {
                     if (player.getPositionY() + 1 < 1430) {
                         player.setPositionY(player.getPositionY() + 1*Player.speed);
@@ -179,17 +171,7 @@ public class GameActivity extends AppCompatActivity {
                     player.setMoving(true);
                     player.update();
                     return true;
-                }
-                player.setMoving(false);
-                player.update();
-                return false;
-            }
-        });
-
-        layout.setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                while (keyCode == KeyEvent.KEYCODE_DPAD_LEFT
+                } else if (keyCode == KeyEvent.KEYCODE_DPAD_LEFT
                         && event.getAction() == KeyEvent.ACTION_DOWN) {
                     if (player.getPositionX() - 1 > 140) {
                         player.setPositionX(player.getPositionX() - 1*Player.speed);
@@ -199,17 +181,7 @@ public class GameActivity extends AppCompatActivity {
                     player.setMoving(true);
                     player.update();
                     return true;
-                }
-                player.setMoving(false);
-                player.update();
-                return false;
-            }
-        });
-
-        layout.setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                while (keyCode == KeyEvent.KEYCODE_DPAD_RIGHT
+                } else if (keyCode == KeyEvent.KEYCODE_DPAD_RIGHT
                         && event.getAction() == KeyEvent.ACTION_DOWN) {
                     if (player.getPositionX() + 1 < 820) {
                         player.setPositionX(player.getPositionX() + 1*Player.speed);
@@ -225,10 +197,7 @@ public class GameActivity extends AppCompatActivity {
                 return false;
             }
         });
-//
-//        // Set focus on the layout to receive key events
-//        layout.setFocusableInTouchMode(true);
-//        layout.requestFocus();
+
 //
 //        Timer statusTimer = new Timer();
 //        statusTimer.schedule(new TimerTask() {

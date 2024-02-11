@@ -11,14 +11,14 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class Player extends Circle {
-    public static final double speed = 400.0;
+    public static final double speed = 10.0;
     public int health = 5;
     private boolean isMoving;
     private String direction;
     private PlayerState playerState;
     private String username;
     private int score;
-    private static String difficulty;
+    private String difficulty;
     private volatile static Player player;
 
 
@@ -30,7 +30,7 @@ public class Player extends Circle {
         this.username = username;
         this.health = health;
         this.score = score;
-        Player.difficulty = difficulty;
+        this.difficulty = difficulty;
         this.direction = direction;
     }
 
@@ -41,7 +41,7 @@ public class Player extends Circle {
         this.username = "Username";
         this.health = 5;
         this.score = 0;
-        Player.difficulty = "Medium";
+        this.difficulty = "Medium";
         this.direction = "DOWN";
     }
 
@@ -56,6 +56,15 @@ public class Player extends Circle {
         return player;
     }
 
+    public void difficultyModeConfiguration() {
+        if (getDifficulty().equals("Hard")) {
+            setHealth(3);
+        } else if (getDifficulty().equals("Medium")) {
+            setHealth(4);
+        } else if (getDifficulty().equals("Easy")) {
+            setHealth(5);
+        }
+    }
     @Override
     public void update() {
         playerState.update(this.direction, this.isMoving);
@@ -86,7 +95,7 @@ public class Player extends Circle {
     public int getScore() {
         return score;
     }
-    public static String getDifficulty() {
+    public String getDifficulty() {
         return difficulty;
     }
     public void setUsername(String username) {
@@ -99,7 +108,7 @@ public class Player extends Circle {
         this.score = score;
     }
     public void setDifficulty(String difficulty) {
-        Player.difficulty = difficulty;
+        this.difficulty = difficulty;
     }
     public PlayerState getPlayerState() {
         return playerState;

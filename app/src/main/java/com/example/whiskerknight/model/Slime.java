@@ -31,7 +31,7 @@ public class Slime extends Circle {
     }
 
     public void setDifficulty(Player player) {
-        String difficulty = Player.getDifficulty();
+        String difficulty = player.getDifficulty();
         if (difficulty.equals("Easy")) {
             speed = 0.4;
             spawnRateMin = 20;

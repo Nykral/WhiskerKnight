@@ -2,7 +2,6 @@ package com.example.whiskerknight.view;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -33,8 +32,7 @@ public class CreationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_creation_screen);
 
-        playerVM = new ViewModelProvider(this).get(PlayerVM.class);
-        player = new Player();
+        player = Player.getPlayer();
 
         sprite = findViewById(R.id.ibCharacter1);
         radioGroupDifficulty = findViewById(R.id.radioGroupDifficulty);
@@ -56,7 +54,7 @@ public class CreationActivity extends AppCompatActivity {
 
                     player.setDifficulty(selectedDifficulty);
                     player.setUsername(playerName.getText().toString().trim());
-                    playerVM.difficultyModeConfiguration();
+                    player.difficultyModeConfiguration();
 
                     Intent intent = new Intent(CreationActivity.this, GameActivity.class);
                     startActivity(intent);
