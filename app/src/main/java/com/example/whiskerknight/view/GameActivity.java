@@ -1,5 +1,6 @@
 package com.example.whiskerknight.view;
 
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
@@ -45,8 +46,6 @@ public class GameActivity extends AppCompatActivity {
     private Beam beam;
     private TextView textViewHealth;
     private int weaponSize = 200;
-    private int enemyKilled = 0;
-    private int pointsEarned = 0;
     private int seconds = 0;
     private int joystickPointerId = 0;
     private Joystick joystick;
@@ -57,6 +56,9 @@ public class GameActivity extends AppCompatActivity {
             weaponSize,
             weaponSize
     );
+    private Timer scoreTimer;
+    private Timer enemyRunner;
+    private Timer manaTimer;
 
 
     @Override
@@ -84,7 +86,7 @@ public class GameActivity extends AppCompatActivity {
         imageViewCharacter.setImageResource(R.drawable.sprite1);
 
         // updates the player's score in real time
-        Timer scoreTimer = new Timer();
+        scoreTimer = new Timer();
         scoreTimer.schedule(new TimerTask() {
             @Override
             public void run() {
@@ -92,8 +94,17 @@ public class GameActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         seconds++;
+
                         player.setScore(player.getScore() + 1);
                         textViewScore.setText("Current Score: " + player.getScore());
+                        if (player.getHealth() <= 0) {
+                            Intent diedIntent = new Intent(GameActivity.this, EndActivity.class);
+                            scoreTimer.cancel();
+                            enemyRunner.cancel();
+                            manaTimer.cancel();
+                            startActivity(diedIntent);
+                            finish();
+                        }
 
                         if (seconds % 10 == 0) {
                             for (int i = 0; i < seconds / 5; i++) {
@@ -108,8 +119,8 @@ public class GameActivity extends AppCompatActivity {
             }
         }, 0, 1000);
 
-        Timer enemyRunner = new Timer();
-        scoreTimer.schedule(new TimerTask() {
+        enemyRunner = new Timer();
+        enemyRunner.schedule(new TimerTask() {
             @Override
             public void run() {
                 runOnUiThread(new Runnable() {
@@ -121,6 +132,29 @@ public class GameActivity extends AppCompatActivity {
             }
         }, 0, 35);
 
+        manaTimer = new Timer();
+        int delay;
+        if (player.getDifficulty().equals("Hard")) {
+            delay = 3000;
+        } else if (player.getDifficulty().equals("Medium")) {
+            delay = 2000;
+        } else {
+            delay = 1000;
+        }
+        manaTimer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (player.getMana() != 5) {
+                            player.setMana(player.getMana() + 1);
+                        }
+                    }
+                });
+            }
+        }, 0, delay);
+
         layout.setFocusableInTouchMode(true);
         layout.requestFocus();
 
@@ -129,7 +163,7 @@ public class GameActivity extends AppCompatActivity {
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if (keyCode == KeyEvent.KEYCODE_DPAD_UP
                         && event.getAction() == KeyEvent.ACTION_DOWN) {
-                    if (player.getPositionY() - 1 > 340) {
+                    if (player.getPositionY() - 1 > 0) {
                         player.setPositionY(player.getPositionY() - 1*Player.speed);
                     }
                     imageViewCharacter.setY((float) player.getPositionY());
@@ -139,7 +173,7 @@ public class GameActivity extends AppCompatActivity {
                     return true;
                 } else if (keyCode == KeyEvent.KEYCODE_DPAD_DOWN
                         && event.getAction() == KeyEvent.ACTION_DOWN) {
-                    if (player.getPositionY() + 1 < 1430) {
+                    if (player.getPositionY() + 1 < 2050) {
                         player.setPositionY(player.getPositionY() + 1*Player.speed);
                     }
                     imageViewCharacter.setY((float) player.getPositionY());
@@ -149,7 +183,7 @@ public class GameActivity extends AppCompatActivity {
                     return true;
                 } else if (keyCode == KeyEvent.KEYCODE_DPAD_LEFT
                         && event.getAction() == KeyEvent.ACTION_DOWN) {
-                    if (player.getPositionX() - 1 > 140) {
+                    if (player.getPositionX() - 1 > 0) {
                         player.setPositionX(player.getPositionX() - 1*Player.speed);
                     }
                     imageViewCharacter.setX((float) player.getPositionX());
@@ -159,7 +193,7 @@ public class GameActivity extends AppCompatActivity {
                     return true;
                 } else if (keyCode == KeyEvent.KEYCODE_DPAD_RIGHT
                         && event.getAction() == KeyEvent.ACTION_DOWN) {
-                    if (player.getPositionX() + 1 < 820) {
+                    if (player.getPositionX() + 1 < 1000) {
                         player.setPositionX(player.getPositionX() + 1*Player.speed);
                     }
                     imageViewCharacter.setX((float) player.getPositionX());
@@ -169,11 +203,14 @@ public class GameActivity extends AppCompatActivity {
                     return true;
                 } else if (keyCode == KeyEvent.KEYCODE_SPACE
                         && event.getAction() == KeyEvent.ACTION_DOWN) {
-                    ImageView beamImage = new ImageView(GameActivity.this);
-                    beamImage.setImageResource(R.mipmap.ic_launcher);
-                    setBeamImage(beamImage, 50, 50);
-                    beamList.add(new Beam(player, beamImage));
-                    return true;
+                    if (player.getMana() != 0) {
+                        player.setMana(player.getMana() - 1);
+                        ImageView beamImage = new ImageView(GameActivity.this);
+                        beamImage.setImageResource(R.mipmap.ic_launcher);
+                        setBeamImage(beamImage, 50, 50);
+                        beamList.add(new Beam(player, beamImage));
+                        return true;
+                    }
                 }
                 player.setMoving(false);
                 player.update();
