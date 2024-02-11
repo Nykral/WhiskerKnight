@@ -16,7 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.whiskerknight.R;
-import com.example.whiskerknight.model.GameObject;
+import com.example.whiskerknight.model.Circle;
 import com.example.whiskerknight.viewmodel.Joystick;
 import com.example.whiskerknight.model.Beam;
 import com.example.whiskerknight.model.Slime;
@@ -24,7 +24,6 @@ import com.example.whiskerknight.model.Player;
 import com.example.whiskerknight.viewmodel.PlayerVM;
 
 import java.util.Iterator;
-import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.ArrayList;
@@ -44,6 +43,7 @@ public class GameActivity extends AppCompatActivity {
     private boolean isAttacking = false;
     private boolean attackLaunched = false;
     private Beam beam;
+    private TextView textViewHealth;
     private int weaponSize = 200;
     private int enemyKilled = 0;
     private int pointsEarned = 0;
@@ -69,22 +69,20 @@ public class GameActivity extends AppCompatActivity {
 
         playerVM = new ViewModelProvider(this).get(PlayerVM.class);
 
-        TextView textViewHealth = findViewById(R.id.textViewStartingHealth);
+        textViewHealth = findViewById(R.id.textViewStartingHealth);
         TextView textViewPlayerName = findViewById(R.id.textViewPlayerName);
         TextView textViewScore = findViewById(R.id.textViewScore);
         imageViewCharacter = findViewById(R.id.imageViewCharacter);
-//
-//        joystick = new Joystick(275, 700, 70, 40);
+
         layout = findViewById(R.id.map1);
         player = Player.getPlayer();
-//
+
         //concatenate player's values with the category
         textViewPlayerName.setText("Player Name: " + player.getUsername());
         textViewHealth.setText("Health: " + player.getHealth());
-//
+
         imageViewCharacter.setImageResource(R.drawable.sprite1);
-//        beam = new Beam(player);
-//
+
         // updates the player's score in real time
         Timer scoreTimer = new Timer();
         scoreTimer.schedule(new TimerTask() {
@@ -96,69 +94,35 @@ public class GameActivity extends AppCompatActivity {
                         seconds++;
                         player.setScore(player.getScore() + 1);
                         textViewScore.setText("Current Score: " + player.getScore());
-                        updateEnemies();
+
                         if (seconds % 10 == 0) {
-                            for (int i = 0; i < seconds / 2; i++) {
-                                ImageView imageView = new ImageView(GameActivity.this);
-                                imageView.setImageResource(R.mipmap.ic_launcher);
-                                viewSet(imageView, 100, 100);
-                                slimeList.add(new Slime(player, imageView));
+                            for (int i = 0; i < seconds / 5; i++) {
+                                ImageView slimeImage = new ImageView(GameActivity.this);
+                                slimeImage.setImageResource(R.mipmap.ic_launcher);
+                                setSlimeImage(slimeImage, 100, 100);
+                                slimeList.add(new Slime(player, slimeImage));
                             }
                         }
                     }
                 });
             }
         }, 0, 1000);
-//
-//        enemyHandler.postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                //updateEnemies();
-//                update();
-//                // Repeat the task after a delay
-//                enemyHandler.postDelayed(this, 100); // adjust the delay as needed
-//            }
-//        }, 80);
-//
-//        //update screen to match values
-//        hitHandler.postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                //destroy();
-//                if (trackHits()) {
-//                    textViewHealth.setText("Health: " + player.getHealth());
-//                    textViewScore.setText("Current Score: " + player.getScore());
-//                    enemyHandler.postDelayed(this, 1500); // adjust the delay as needed
-//                } else {
-//                    enemyHandler.postDelayed(this, 100); // adjust the delay as needed
-//                }
-//            }
-//        }, 80);
-//
-//
-        RelativeLayout layout = findViewById(R.id.map1);
+
+        Timer enemyRunner = new Timer();
+        scoreTimer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        update(player.getPositionX(), player.getPositionY());
+                    }
+                });
+            }
+        }, 0, 35);
+
         layout.setFocusableInTouchMode(true);
         layout.requestFocus();
-//
-//        layout.setOnKeyListener(new View.OnKeyListener() {
-//            @Override
-//            public boolean onKey(View v, int keyCode, KeyEvent event) {
-//                if (keyCode == KeyEvent.KEYCODE_SPACE
-//                        && event.getAction() == KeyEvent.ACTION_DOWN) {
-//                    if (!attackLaunched) {
-//                        // Throw the weapon
-//                        //launchAttack();
-//                    } else {
-//                        // Reset weapon position and make it invisible
-//                        //laser.setVisibility(View.VISIBLE);
-//                    }
-//                    // Toggle the thrown state
-//                    attackLaunched = !attackLaunched;
-//                    return true;
-//                }
-//                return false;
-//            }
-//        });
 
         layout.setOnKeyListener(new View.OnKeyListener() {
             @Override
@@ -203,6 +167,13 @@ public class GameActivity extends AppCompatActivity {
                     player.setMoving(true);
                     player.update();
                     return true;
+                } else if (keyCode == KeyEvent.KEYCODE_SPACE
+                        && event.getAction() == KeyEvent.ACTION_DOWN) {
+                    ImageView beamImage = new ImageView(GameActivity.this);
+                    beamImage.setImageResource(R.mipmap.ic_launcher);
+                    setBeamImage(beamImage, 50, 50);
+                    beamList.add(new Beam(player, beamImage));
+                    return true;
                 }
                 player.setMoving(false);
                 player.update();
@@ -234,38 +205,15 @@ public class GameActivity extends AppCompatActivity {
 //            }
 //        }
 
+//        if (player.getHealth() <= 0) {
+//            Intent diedIntent = new Intent(GameActivity.this, EndActivity.class);
+//            statusTimer.cancel();
+//            scoreTimer.cancel();
+//            music.pause();
+//            startActivity(diedIntent);
+//            finish();
 //
-//        Timer statusTimer = new Timer();
-//        statusTimer.schedule(new TimerTask() {
-//            @Override
-//            public void run() {
-//                runOnUiThread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        if (player.getHealth() <= 0) {
-//                            Intent diedIntent = new Intent(GameActivity.this, EndActivity.class);
-//                            statusTimer.cancel();
-//                            scoreTimer.cancel();
-//                            music.pause();
-//                            startActivity(diedIntent);
-//                            finish();
-//                        }
-//                    }
-//                });
-//            }
-//        }, 0, 250); // Check every .25 seconds
-//    }
 //
-//    private void update() {
-//        spawnSlime();
-//
-//        for (Slime slime : enemyList) {
-//            slime.update();
-//        }
-//
-//        for (Beam beam : beamList) {
-//            beam.update();
-//        }
 //        Iterator<Slime> slimeIterator = enemyList.iterator();
 //        while (slimeIterator.hasNext()) {
 //            Slime currentSlime = slimeIterator.next();
@@ -332,65 +280,68 @@ public class GameActivity extends AppCompatActivity {
 ////            attackLaunched = true;
 ////        }
 //
-////        new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
-////            @Override
-////            public void run() {
-////                // Make weapon invisible again
-////                laser.setVisibility(View.INVISIBLE);
-////                laser.moveHorizontally(laser.getX() - 200);
-////            }
-////        }, 500);
-//    }
+////
     }
-    private void viewSet(ImageView imageView, int width, int height) {
+    private void setSlimeImage(ImageView imageView, int width, int height) {
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(width, height);
 
-        // setting the margin in linearlayout
-        params.setMargins((int) (Math.random()*20 + 490), (int) (Math.random() < 0.5 ? 20 : 1900), 0, 10);
         imageView.setLayoutParams(params);
         imageView.setImageResource(R.drawable.slime);
-        // adding the image in layout
+        imageView.setVisibility(View.INVISIBLE);
         layout.addView(imageView);
     }
 
-    private void updateEnemies() {
-        for (Slime slime : slimeList) {
-            slime.update();
-            slime.getImage().setX((float) slime.getPositionX());
-            slime.getImage().setY((float) slime.getPositionY());
+    private void setBeamImage(ImageView imageView, int width, int height) {
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(width, height);
 
+        imageView.setLayoutParams(params);
+        imageView.setImageResource(R.drawable.beam);
+        imageView.setVisibility(View.INVISIBLE);
+        layout.addView(imageView);
+    }
+
+    private void update(double posX, double posY) {
+        for (Slime slime : slimeList) {
+            slimeTracking(slime, posX, posY);
+        }
+        for (Beam beam : beamList) {
+            beam.update();
         }
 
         Iterator<Slime> slimeIterator = slimeList.iterator();
         while (slimeIterator.hasNext()) {
             Slime currentSlime = slimeIterator.next();
             if (currentSlime.hit(findViewById(R.id.imageViewCharacter))) {
+                currentSlime.getImage().setImageResource(0);
                 slimeIterator.remove();
                 player.setHealth(player.getHealth() - 1);
+                textViewHealth.setText("Health: " + player.getHealth());
+            }
+            Iterator<Beam> iteratorBeam = beamList.iterator();
+            while (iteratorBeam.hasNext()) {
+                Beam beam = iteratorBeam.next();
+                // Remove enemy if it collides with a spell
+                if (currentSlime.hit(beam.getImage())) {
+                    currentSlime.getImage().setImageResource(0);
+                    beam.getImage().setImageResource(0);
+                    iteratorBeam.remove();
+                    slimeIterator.remove();
+                    break;
+                }
             }
         }
     }
-    public void update() {
-        double distanceToPlayerX = player.getPositionX() - slime.getPositionX();
-        double distanceToPlayerY = player.getPositionY() - slime.getPositionY();
+    public void slimeTracking(Slime slime, double posX, double posY) {
+        double distanceToPlayerX = posX - slime.getPositionX();
+        double distanceToPlayerY = posY - slime.getPositionY();
 
-        // Calculate (absolute) distance between enemy (this) and player
-        double distanceToPlayer = GameObject.getDistanceBetweenObjects(this, player);
 
-        // Calculate direction from enemy to player
-        double directionX = distanceToPlayerX/distanceToPlayer;
-        double directionY = distanceToPlayerY/distanceToPlayer;
+        slime.setPositionX(slime.getPositionX() + Math.signum(distanceToPlayerX)*1.5);
+        slime.setPositionY(slime.getPositionY() + Math.signum(distanceToPlayerY)*2);
 
-        // Set velocity in the direction to the player
-        if(distanceToPlayer > 0) { // Avoid division by zero
-            velocityX = directionX*speed;
-            velocityY = directionY*speed;
-        } else {
-            velocityX = 0;
-            velocityY = 0;
-        }
+        slime.getImage().setVisibility(View.VISIBLE);
 
-        positionX += velocityX;
-        positionY += velocityY;
+        slime.getImage().setX((float) slime.getPositionX());
+        slime.getImage().setY((float) slime.getPositionY());
     }
 }

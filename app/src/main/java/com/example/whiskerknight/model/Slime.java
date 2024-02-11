@@ -24,7 +24,7 @@ public class Slime extends Circle {
     }
 
     public Slime(Player player, ImageView image) {
-        super(Math.random()*1000, Math.random()*1000, 30);
+        super(Math.random()*300 + 350, Math.random() < 0.5 ? 300 : 1800, 30);
         this.player = player;
         this.image = image;
         setDifficulty(player);

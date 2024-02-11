@@ -14,8 +14,6 @@ public class Player extends Circle {
     public static final double speed = 10.0;
     public int health = 5;
     private boolean isMoving;
-    private String direction;
-    private PlayerState playerState;
     private String username;
     private int score;
     private String difficulty;
@@ -23,26 +21,22 @@ public class Player extends Circle {
 
 
     public Player(boolean isMoving, String username, int health, int score,
-                  String difficulty, String avatar, int timePlayed, double posX, double posY, double radius, String direction) {
+                  String difficulty, double posX, double posY, double radius) {
         super(posX, posY, radius);
         this.isMoving = false;
-        this.playerState = new PlayerState(this);
         this.username = username;
         this.health = health;
         this.score = score;
         this.difficulty = difficulty;
-        this.direction = direction;
     }
 
     public Player() {
         super(500, 1100, 30);
         this.isMoving = false;
-        this.playerState = new PlayerState(this);
         this.username = "Username";
         this.health = 5;
         this.score = 0;
         this.difficulty = "Medium";
-        this.direction = "DOWN";
     }
 
     public static Player getPlayer() {
@@ -67,7 +61,6 @@ public class Player extends Circle {
     }
     @Override
     public void update() {
-        playerState.update(this.direction, this.isMoving);
     }
 
     public boolean isMoving() {
@@ -79,12 +72,21 @@ public class Player extends Circle {
     }
 
     public void setDirection(String direction) {
-        this.direction = direction;
+        if (direction.equals("UP")) {
+            this.directionY = -1;
+            this.directionX = 0;
+        } else if (direction.equals("DOWN")) {
+            this.directionY = 1;
+            this.directionX = 0;
+        } else if (direction.equals("LEFT")) {
+            this.directionX = -1;
+            this.directionY = 0;
+        } else {
+            this.directionX = 1;
+            this.directionY = 0;
+        }
     }
 
-    public String getDirection() {
-        return direction;
-    }
 
     public String getUsername() {
         return username;
@@ -109,9 +111,6 @@ public class Player extends Circle {
     }
     public void setDifficulty(String difficulty) {
         this.difficulty = difficulty;
-    }
-    public PlayerState getPlayerState() {
-        return playerState;
     }
 
 }
