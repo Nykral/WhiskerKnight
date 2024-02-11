@@ -1,6 +1,7 @@
 package com.example.whiskerknight.view;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -17,6 +18,8 @@ import com.example.whiskerknight.Leaderboard.BuildLeaderboard;
 import com.example.whiskerknight.Leaderboard.LeaderboardAdapter;
 import com.example.whiskerknight.viewmodel.PlayerVM;
 
+import pl.droidsonroids.gif.GifImageView;
+
 public class EndActivity extends AppCompatActivity {
     private Button startOverButton;
     private PlayerVM playerVM;
@@ -26,20 +29,15 @@ public class EndActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_end_screen);
+        MediaPlayer music = MediaPlayer.create(EndActivity.this, R.raw.sad);
+        music.start();
+        music.setLooping(true);
 
         Intent intent = getIntent();
         String result = intent.getStringExtra("result");
 
         playerVM = new ViewModelProvider(this).get(PlayerVM.class);
         leaderboardList = BuildLeaderboard.getInstance();
-
-
-        ImageView resultBanner = findViewById(R.id.imageViewEndingBanner);
-        if ("win".equals(result)) {
-            resultBanner.setImageResource(R.drawable.win_animation);
-        } else {
-            resultBanner.setImageResource(R.drawable.win_animation);
-        }
 
 
         // displays player's current attempt
@@ -56,6 +54,7 @@ public class EndActivity extends AppCompatActivity {
         startOverButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                music.stop();
                 Intent intent = new Intent(EndActivity.this, StartActivity.class);
                 startActivity(intent);
             }

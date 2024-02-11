@@ -7,23 +7,25 @@ import android.widget.ImageView;
 
 import com.example.whiskerknight.Activity.GameDisplay;
 
+import pl.droidsonroids.gif.GifImageView;
+
 
 public class Slime extends Circle {
-    private ImageView image;
+    private GifImageView image;
     private static double speed = Player.speed*0.6;
     private static double spawnRateMin;
     private static final double spawnRateSec = spawnRateMin/60.0;
     private boolean isDestroyed = false;
     private Player player;
 
-    public Slime(Player player, double positionX, double positionY, double radius, ImageView image) {
+    public Slime(Player player, double positionX, double positionY, double radius, GifImageView image) {
         super(positionX, positionY, radius);
         this.player = player;
         this.image = image;
         setDifficulty(player);
     }
 
-    public Slime(Player player, ImageView image) {
+    public Slime(Player player, GifImageView image) {
         super(Math.random()*300 + 350, Math.random() < 0.5 ? 300 : 1800, 30);
         this.player = player;
         this.image = image;
@@ -65,8 +67,17 @@ public class Slime extends Circle {
 
         return Rect.intersects(playerRect, enemyRect);
     }
+    public boolean hit(GifImageView player) {
+        Rect playerRect = new Rect();
+        player.getHitRect(playerRect);
 
-    public void setImage(ImageView image) {
+        Rect enemyRect = new Rect();
+        image.getHitRect(enemyRect);
+
+        return Rect.intersects(playerRect, enemyRect);
+    }
+
+    public void setImage(GifImageView image) {
         this.image = image;
     }
     public void setSpeed(double num) {
@@ -81,7 +92,7 @@ public class Slime extends Circle {
     private void destroyEnemy() {
         isDestroyed = true;
     }
-    public ImageView getImage() {
+    public GifImageView getImage() {
         return image;
     }
     public double getSpeed() {

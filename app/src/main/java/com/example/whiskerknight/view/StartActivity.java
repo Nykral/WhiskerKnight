@@ -1,6 +1,7 @@
 package com.example.whiskerknight.view;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -23,10 +24,14 @@ public class StartActivity extends AppCompatActivity {
         btnStartGame = findViewById(R.id.btnStartGame);
         btnExit = findViewById(R.id.btnExit);
 
+        MediaPlayer music = MediaPlayer.create(StartActivity.this, R.raw.bg);
+        music.start();
+        music.setLooping(true);
 
         btnStartGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                music.stop();
                 Intent intent = new Intent(StartActivity.this, CreationActivity.class);
                 startActivity(intent);
             }
@@ -35,6 +40,7 @@ public class StartActivity extends AppCompatActivity {
         btnExit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                music.stop();
                 finishAffinity();
                 exitGame();
             }

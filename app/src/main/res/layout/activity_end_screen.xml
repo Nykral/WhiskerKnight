@@ -7,16 +7,27 @@
     android:fitsSystemWindows="true"
     android:orientation="vertical"
     android:gravity="center"
+    android:background="@drawable/death"
     tools:context=".view.StartActivity">
 
     <pl.droidsonroids.gif.GifImageView
         android:id="@+id/imageViewEndingBanner"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_marginTop="100dp"
-        android:layout_marginEnd="0dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="100dp"
         android:contentDescription="Ending Header"
-        android:src="@drawable/win_animation" />
+        android:src="@drawable/ghost" />
+
+
+    <Button
+        android:id="@+id/btnStartOver"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:backgroundTint="#2A787474"
+        android:textColor="@color/black"
+        android:text="Start Over" />
 
     <TextView
         android:id="@+id/textViewCurrentAttempt"
@@ -24,22 +35,14 @@
         android:layout_height="wrap_content"
         android:text="current attempt"
         android:textSize="20sp"
-        android:layout_marginTop="10dp" />
-
-    <Button
-        android:id="@+id/btnStartOver"
-        android:layout_width="80dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="Start Over" />
-
+        android:layout_marginTop="80dp" />
     <TextView
         android:id="@+id/textViewLeaderBoardHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="~Leaderboard~"
         android:textSize="30sp"
-        android:layout_marginTop="70dp" />
+        android:layout_marginTop="90dp" />
 
     <ListView
         android:id="@+id/listViewLeaderboard"

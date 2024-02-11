@@ -2,6 +2,8 @@ package com.example.whiskerknight.model;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import com.example.whiskerknight.R;
+
 
 import com.example.whiskerknight.Activity.GameDisplay;
 import com.example.whiskerknight.viewmodel.Utils;
@@ -9,6 +11,8 @@ import com.example.whiskerknight.viewmodel.Joystick;
 
 import java.util.Calendar;
 import java.util.Date;
+
+import pl.droidsonroids.gif.GifImageView;
 
 public class Player extends Circle {
     public static final double speed = 10.0;
@@ -20,10 +24,12 @@ public class Player extends Circle {
     private int score;
     private String difficulty;
     private volatile static Player player;
+    private String lastPress;
+    private GifImageView image;
 
 
     public Player(boolean isMoving, String username, int health, int score,
-                  String difficulty, double posX, double posY, double radius) {
+                  String difficulty, double posX, double posY, double radius, String lastPress, GifImageView image) {
         super(posX, posY, radius);
         this.isMoving = false;
         this.username = username;
@@ -31,6 +37,8 @@ public class Player extends Circle {
         this.mana = maxMana;
         this.score = score;
         this.difficulty = difficulty;
+        this.lastPress = lastPress;
+        this.image = image;
     }
 
     public Player() {
@@ -41,6 +49,8 @@ public class Player extends Circle {
         this.mana = maxMana;
         this.score = 0;
         this.difficulty = "Medium";
+        this.lastPress = "DOWN";
+        this.image = null;
     }
 
     public static Player getPlayer() {
@@ -52,6 +62,14 @@ public class Player extends Circle {
             }
         }
         return player;
+    }
+
+    public void setImage(GifImageView image) {
+        this.image = image;
+    }
+
+    public GifImageView getImage() {
+        return image;
     }
 
     public void difficultyModeConfiguration() {
@@ -77,20 +95,32 @@ public class Player extends Circle {
 
     public void setDirection(String direction) {
         if (direction.equals("UP")) {
+            this.lastPress = "UP";
             this.directionY = -1;
             this.directionX = 0;
         } else if (direction.equals("DOWN")) {
+            this.lastPress = "DOWN";
             this.directionY = 1;
             this.directionX = 0;
         } else if (direction.equals("LEFT")) {
+            this.lastPress = "LEFT";
             this.directionX = -1;
             this.directionY = 0;
         } else {
+            this.lastPress = "RIGHT";
             this.directionX = 1;
             this.directionY = 0;
         }
     }
 
+
+    public void setLastPress(String lastPress) {
+        this.lastPress = lastPress;
+    }
+
+    public String getLastPress() {
+        return lastPress;
+    }
 
     public String getUsername() {
         return username;

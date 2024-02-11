@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -18,10 +19,12 @@ import com.example.whiskerknight.R;
 import com.example.whiskerknight.model.Player;
 import com.example.whiskerknight.viewmodel.PlayerVM;
 
+import pl.droidsonroids.gif.GifImageView;
+
 public class CreationActivity extends AppCompatActivity {
     private Player player;
     private PlayerVM playerVM;
-    private ImageView sprite;
+    private GifImageView sprite;
     private ImageButton selectedImageButton;
     private RadioGroup radioGroupDifficulty;
     private EditText playerName;
@@ -38,7 +41,9 @@ public class CreationActivity extends AppCompatActivity {
         radioGroupDifficulty = findViewById(R.id.radioGroupDifficulty);
         playerName = findViewById(R.id.getPlayerName);
         btnContinue = findViewById(R.id.btnContinue);
-
+        MediaPlayer music = MediaPlayer.create(CreationActivity.this, R.raw.bg);
+        music.start();
+        music.setLooping(true);
 
         btnContinue.setEnabled(true);
 
@@ -55,7 +60,7 @@ public class CreationActivity extends AppCompatActivity {
                     player.setDifficulty(selectedDifficulty);
                     player.setUsername(playerName.getText().toString().trim());
                     player.difficultyModeConfiguration();
-
+                    music.stop();
                     Intent intent = new Intent(CreationActivity.this, GameActivity.class);
                     startActivity(intent);
                 }

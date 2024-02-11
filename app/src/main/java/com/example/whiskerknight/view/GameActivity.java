@@ -30,10 +30,12 @@ import java.util.TimerTask;
 import java.util.ArrayList;
 import java.util.List;
 
+import pl.droidsonroids.gif.GifImageView;
+
 public class GameActivity extends AppCompatActivity {
     private Player player;
     private PlayerVM playerVM;
-    private ImageView imageViewCharacter;
+    private GifImageView imageViewCharacter;
     private Slime slime;
     private Handler enemyHandler = new Handler(Looper.getMainLooper());
     private Handler hitHandler = new Handler(Looper.getMainLooper());
@@ -59,6 +61,7 @@ public class GameActivity extends AppCompatActivity {
     private Timer scoreTimer;
     private Timer enemyRunner;
     private Timer manaTimer;
+    private boolean helpme = true;
 
 
     @Override
@@ -66,8 +69,9 @@ public class GameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_screen);
 
-        MediaPlayer music = MediaPlayer.create(GameActivity.this, R.raw.scene1);
+        MediaPlayer music = MediaPlayer.create(GameActivity.this, R.raw.gam);
         music.start();
+        music.setLooping(true);
 
         playerVM = new ViewModelProvider(this).get(PlayerVM.class);
 
@@ -82,7 +86,7 @@ public class GameActivity extends AppCompatActivity {
         //concatenate player's values with the category
         textViewPlayerName.setText("Player Name: " + player.getUsername());
         textViewHealth.setText("Health: " + player.getHealth());
-
+        player.setImage(imageViewCharacter);
         imageViewCharacter.setImageResource(R.drawable.stand_down);
 
         // updates the player's score in real time
@@ -102,13 +106,14 @@ public class GameActivity extends AppCompatActivity {
                             scoreTimer.cancel();
                             enemyRunner.cancel();
                             manaTimer.cancel();
+                            music.pause();
                             startActivity(diedIntent);
                             finish();
                         }
 
                         if (seconds % 10 == 0) {
                             for (int i = 0; i < seconds / 5; i++) {
-                                ImageView slimeImage = new ImageView(GameActivity.this);
+                                GifImageView slimeImage = new GifImageView(GameActivity.this);
                                 slimeImage.setImageResource(R.mipmap.ic_launcher);
                                 setSlimeImage(slimeImage, 100, 100);
                                 slimeList.add(new Slime(player, slimeImage));
@@ -213,6 +218,15 @@ public class GameActivity extends AppCompatActivity {
                     }
                 }
                 player.setMoving(false);
+                if (player.getLastPress().equals("UP")) {
+                    player.getImage().setImageResource(R.drawable.up_animation);
+                } else if (player.getLastPress().equals("DOWN")) {
+                    player.getImage().setImageResource(R.drawable.down_animation);
+                } else if (player.getLastPress().equals("LEFT")) {
+                    player.getImage().setImageResource(R.drawable.left_animation);
+                } else if (player.getLastPress().equals("RIGHT")) {
+                    player.getImage().setImageResource(R.drawable.right_animation);
+                }
                 player.update();
                 return false;
             }
@@ -319,7 +333,7 @@ public class GameActivity extends AppCompatActivity {
 //
 ////
     }
-    private void setSlimeImage(ImageView imageView, int width, int height) {
+    private void setSlimeImage(GifImageView imageView, int width, int height) {
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(width, height);
 
         imageView.setLayoutParams(params);
